@@ -65,3 +65,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 )
 ```
+
+- Acima, estamos informando como conteúdo a ser exibido na tela o componente `App`. Esse componente será injetado e será exibido o seu conteúdo (Hello World):
+
+``` JS
+export default function App() {
+
+  return (
+    <div>
+      <h1>Hello World!</h1>
+    </div>
+  )
+}
+```
