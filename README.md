@@ -41,7 +41,7 @@ Para a criação do projeto React com o Vite utilizei o passo a passo que consta
 > npm create vite@latest
 ```
 
-- Feito isso, temos que inserir o nome do projeto, selecionar o framework(react) e a variante (reactJS ou ReactTS):
+- Feito isso, temos que inserir o nome do projeto, selecionar o framework(React) e a variante (JS ou TS):
 
  <div align="center">
     <img width="400" src="https://user-images.githubusercontent.com/86172286/216845535-2fee644b-eaa5-4f01-a952-4dd3acdde56a.jpg" >
