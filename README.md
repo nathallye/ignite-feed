@@ -9,9 +9,11 @@
 - Rendering Patterns (Padrões de renderização)
   - **SSR**
   Toda vez que o usuário (o Browser) requisita uma página(rota) da aplicação, essa página é recebida pelo servidor; o servidor contém todo o código (back-end e front-end da aplicação), o back-end interpleta a requisição do browser e monta todo o HTML, CSS e JS da página solicitada e devolve para o Browser.
+  ![ssr](https://user-images.githubusercontent.com/86172286/216845518-3e835666-c768-4224-a8dc-a43d0e635e09.jpg)
 
   - **SPA**
   Toda vez que o usuário (o Browser) requisita uma página(rota) da aplicação, o back-end(API) busca no banco de dados, porém, o back-end não contém mais as informações para construção do HTML, CSS e JS da página, ele vai apenas retornar os dados(nesse caso é os dados dos usuários - users) em formato de JSON; e esses dados são mandados para a aplicação front-end (React) e ela será responsável por converter esses dados de JSON para HTML, CSS e JS.
+  ![spa](https://user-images.githubusercontent.com/86172286/216845522-26703e0a-88b8-4761-a932-4929cd90ba78.jpg)
 
 ## Bundlers & Compilers (Empacotadores e Compiladores)
 
@@ -33,7 +35,8 @@ Para a criação do projeto React com o Vite utilizei o passo a passo que consta
 > npm create vite@latest
 ```
 
-- Feito isso, temos que inserir o nome do projeto, selecionar o framework(react) e a variante (reactJS ou ReactTS);
+- Feito isso, temos que inserir o nome do projeto, selecionar o framework(react) e a variante (reactJS ou ReactTS):
+![select](https://user-images.githubusercontent.com/86172286/216845535-2fee644b-eaa5-4f01-a952-4dd3acdde56a.jpg)
 
 - Para abrirmos a aplicação, vamos primeiro instalar as dependências e em seguida rodar:
 
