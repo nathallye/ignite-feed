@@ -23,13 +23,13 @@
 
 ## Bundlers & Compilers (Empacotadores e Compiladores)
 
-- Com o mundo de desenvolvimento evoluindo à todo momento, nem sempre todos os browsers conseguem acompanhar a evolução da tecnologia para dar suporte à sintaxe mais moderna. 
+Com o mundo de desenvolvimento evoluindo à todo momento, nem sempre todos os browsers conseguem acompanhar a evolução da tecnologia para dar suporte à sintaxe mais moderna. 
 
-- Para isso existem os **compilers**, como o **babel** que convertem o código moderno para uma sintaxe mais antiga que os browsers reconhecem; e os **bundlers** como o **webpack** que faz um bundling de todos os arquivos da nossa aplicação de uma forma que todos os browsers reconheçam.
+Para isso existem os **compilers**, como o **babel** que convertem o código moderno para uma sintaxe mais antiga que os browsers reconhecem; e os **bundlers** como o **webpack** que faz um bundling de todos os arquivos da nossa aplicação de uma forma que todos os browsers reconheçam.
 
-- Atualmente, a grande maiorida dos browsers já suportam a importação de módulos (importação e exportação entre arquivos JS) através da feature de **ESModules** e com isso não precisamos mais utilizar o webpack, mantendo o nosso fluxo de desenvolvimento e processo de construção da aplicação muito mais performático. 
+Atualmente, a grande maiorida dos browsers já suportam a importação de módulos (importação e exportação entre arquivos JS) através da feature de **ESModules** e com isso não precisamos mais utilizar o webpack, mantendo o nosso fluxo de desenvolvimento e processo de construção da aplicação muito mais performático. 
 
-- Temos outra alternativa para criar o nosso projeto, que é o **Vite** para substituir os bundlers e compilers tradicionais (como babel e webpack) que já utiliza por padrão o ESModules e com ele tiramos proveito das funcionalidades mais modernas dos navegadores para ter uma melhor performance de compilação e execução.
+Temos outra alternativa para criar o nosso projeto, que é o **Vite** para substituir os bundlers e compilers tradicionais (como babel e webpack) que já utiliza por padrão o ESModules e com ele tiramos proveito das funcionalidades mais modernas dos navegadores para ter uma melhor performance de compilação e execução.
 
 ## Criando um projeto React com o Vite
 
@@ -56,9 +56,9 @@ Para a criação do projeto React com o Vite utilizei o passo a passo que consta
 
 ### Exibindo uma string na tela
 
-- Precisamos que o `index.js` interaja com uma biblioteca chamada React DOM - Document Object Model(Modelo de Objeto de Documentos) é que exatamente a extrutura da nossa página. Para isso vamos importar o React DOM no nosso arquivo index.js:
+- Precisamos que o `main.jsx` interaja com uma biblioteca chamada React DOM - Document Object Model(Modelo de Objeto de Documentos) é que exatamente a extrutura da nossa página. Para isso vamos importar o React DOM no nosso arquivo index.js:
 
-``` JS
+``` JSX
                      [nome_módulo]
 import ReactDOM from "react-dom/client";
        [nome_variavel]
@@ -66,7 +66,7 @@ import ReactDOM from "react-dom/client";
 
 - A partir do React DOM vamos renderizar "algo" na tela. Então vamos chamá-lo junto aos métodos *createRoot* e *render*. O *createRoot* recebe o elemento(nesse caso é a div no index.html que contém o id root) no qual queremos inserir/injetar o conteúdo e no *render* informamos o conteúdo que queremos renderizar nesse elemento selecionado:
 
-``` JS
+``` JSX
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
@@ -80,12 +80,63 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 - Acima, estamos informando como conteúdo a ser exibido na tela o componente `App`. Esse componente será injetado e será exibido o seu conteúdo (Hello World):
 
-``` JS
+``` JSX
 export default function App() {
 
   return (
     <div>
       <h1>Hello World!</h1>
+    </div>
+  )
+}
+```
+
+### Estrutura de pastas
+
+- Antes de tudo, para organizar melhor nossa aplicação, em `src` vamos criar uma pasta chamada `components` e dentro desta pasta vamos criar uma subpasta chamada `Header` e dentro dela o componente funcional `Header.jsx` e seu arquivo estilo(css module - css escopado) `Header.module.css`.
+
+- Também vamos criar dentro da pasta `Header` um arquivo chamado `index.jsx` que será responsável por importar/`import` e exportar/`export` por padrão/`default` esse componente para que fique acessível externamente e não seja necessário informar Header/Header na importação.
+
+Vamos seguir essa mesma estrutura para a criação dos demais componentes.
+
+### CSS Modules
+
+Um Módulo CSS é um arquivo CSS no qual todos os nomes de classe e nomes de animação são definidos localmente por padrão. Todas as URLs ( `url(...)`) e `@imports` estão no formato de solicitação de módulo (`./xxx` e `../xxx` significa relativo, `xxx` e `xxx/yyy` significa na pasta de módulos, ou seja, em `node_modules`).
+
+- Módulos CSS compilam em um formato de intercâmbio de baixo nível chamado ICSS ou Interoperable CSS, mas são escritos como arquivos CSS normais. 
+Podemos notar na prática inserindo no arquivo `Header.module.css` a aplicação de estilo abaixo:
+
+``` CSS
+.header {
+  background: #333;
+  height: 80px;
+}
+```
+
+- Ao importar o Módulo CSS de um Módulo JS, ele exporta um objeto com todos os mapeamentos de nomes locais para nomes globais:
+
+``` JSX
+import styles from "./Header.module.css";
+
+export function Header() {
+  return (
+    <header className={styles.header}>
+      <strong>Ignite Feed</strong>
+    </header>
+  )
+}
+```
+
+- Para visualizarmos em tela a aplicação desses estilos, vamos importar o componente `Header` dentro do componente principal(`App`):
+
+``` JSX
+import Header from "./components/Header";
+
+export default function App() {
+
+  return (
+    <div>
+      <Header />
     </div>
   )
 }
