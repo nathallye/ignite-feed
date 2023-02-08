@@ -141,3 +141,15 @@ export default function App() {
   )
 }
 ```
+
+### CSS Global
+
+Agora que já começamos a estilizar a nossa aplicação, vamos criar também algumas estilizações globais para que todos os elementos da nossa página compartilhem de alguns estilos como tamanho e tipos de fontes, resets de CSS e também algumas cores padrões que vamos utilizar na nossa aplicação.
+
+- Em `src` vamos criar um arquivo chamado `global.css`(se já não existir) e importá-lo dentro de `App.jsx`. 
+
+- Dentro desse arquivo de estilização global (`global.css`) vamos definir algumas aplicações de estilo:
+
+``` CSS
+
+```
