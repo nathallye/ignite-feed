@@ -186,7 +186,7 @@ body, input, textarea, button {
 
 ### Componente: Header
 
-- Alterações no componente:
+- Alterações no componente Header:
 
 ``` JSX
 import styles from "./Header.module.css";
@@ -202,7 +202,7 @@ export function Header() {
 }
 ```
 
-- Alterações no CSS Module do Componente:
+- Alterações no CSS Module do Componente Header:
 
 ``` CSS
 .header {
@@ -215,5 +215,182 @@ export function Header() {
 
 .header img {
   height: 2rem; /*32px*/
+}
+```
+
+### Componente: SideBar
+
+- Alterações no componente principal(App):
+
+``` JSX
+import Header from "./components/Header";
+import Sidebar  from "./components/Sidebar";
+import Post from "./components/Post";
+
+import styles from "./App.module.css";
+
+import "./global.css";
+
+export default function App() {
+
+  return (
+    <div>
+      <Header />
+      
+      <div className={styles.wrapper}>
+        <Sidebar />
+        
+        <main>
+          <Post
+            author="Diego Fernandes"
+            content="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime itaque quas corporis beatae veritatis, reprehenderit asperiores vitae quod possimus qui dignissimos unde deleniti consequatur quae, repellat debitis sunt, est rerum!"
+          />
+          <Post
+            author="Nathallye Bacelar"
+            content="Um novo post muito legal"
+          />
+        </main>
+      </div>
+    </div>
+  )
+}
+```
+
+- Criação do CSS Module do componente App:
+
+``` CSS
+.wrapper {
+  display: grid;
+  grid-template-columns: 256px 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+
+  max-width: 70rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+```
+
+- Instalação da biblioteca de icons `Phosphor Icons`. No terminal iremos rodar o comando seguinte:
+
+```
+npm i phosphor-react
+```
+
+Link documentação: https://github.com/phosphor-icons/homepage;
+
+- Criação do componente Sidebar:
+
+``` JSX
+import { PencilLine } from "phosphor-react";
+
+import styles from "./Sidebar.module.css";
+
+export function Sidebar() {
+  return (
+    <aside className={styles.sidebar}>
+      <img 
+        className={styles.cover} 
+        src="https://images.unsplash.com/photo-1617042375876-a13e36732a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=40" 
+        alt="" 
+      />
+
+      <div className={styles.profile}>
+        <img 
+          className={styles.avatar}
+          src="https://github.com/nathallye.png" alt="" 
+        />
+
+        <strong>Nathallye Bacelar</strong>
+        <span>Full-Stack Developer</span>
+      </div>
+
+      <footer>
+        <a href="#">
+          <PencilLine size={20} /> Editar seu perfil
+        </a>
+      </footer>
+    </aside>
+  )
+}
+```
+
+- Criação do CSS module do componente Sidebar:
+
+``` CSS
+.sidebar {
+  background: var(--gray-800);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sidebar footer {
+  border-top: 1px solid var(--gray-600);
+  margin-top: 1.5rem;
+  padding: 1.5rem 2rem 2rem;
+}
+
+.sidebar footer a {
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /*Para separar os elementos*/
+
+  background: transparent;
+  color: var(--green-500);
+
+  border-radius: 8px;
+  border: 1px solid var(--green-500);
+
+  height: 50px;
+  padding: 0 1.5rem;
+
+  font-weight: bold;
+  text-decoration: none;
+
+  transition: color 0.1s, background-color 0.1s;
+} 
+
+.sidebar footer a:hover {
+  background: var(--green-500);
+  color: var(--white);
+}
+
+.cover {
+  width: 100%;
+  height: 72px;
+  object-fit: cover; /*Para não distorcer a imagem para caber, irá cortá-la*/
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: -2rem; /*Ou margin-top: calc(0px -1.5rem - 6px;*/
+}
+
+.profile strong {
+  margin-top: 1rem;
+
+  color: var(--gray-100);
+  line-height: 1.6;
+}
+
+.profile span {
+  font-size: 0.875rem;
+  color: var(--gray-400);
+  line-height: 1.6;
+}
+
+.avatar {
+  box-sizing: initial; /*Faz com que as bordas adicionadas, ocupem espaço a mais e não exprema para caber no container*/
+
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+  border: 4px solid var(--gray-800);
+  outline: 2px solid var(--green-500);
 }
 ```
