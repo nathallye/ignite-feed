@@ -183,3 +183,37 @@ body, input, textarea, button {
   font-size: 1rem;
 }
 ```
+
+### Componente: Header
+
+- Alterações no componente:
+
+``` JSX
+import styles from "./Header.module.css";
+
+import igniteLogo from "../../assets/ignite-logo.svg"
+
+export function Header() {
+  return (
+    <header className={styles.header}>
+      <img src={igniteLogo} alt="Logotipo do Ignite" />
+    </header>
+  )
+}
+```
+
+- Alterações no CSS Module do Componente:
+
+``` CSS
+.header {
+  background: var(--gray-800);
+  display: flex;
+  justify-content: center;
+
+  padding: 1.25rem 0; /*1rem = 16px -> 0.25rem = 4px -> 1.25rem = 20px*/
+}
+
+.header img {
+  height: 2rem; /*32px*/
+}
+```
