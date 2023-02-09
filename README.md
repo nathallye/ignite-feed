@@ -398,46 +398,81 @@ export function Sidebar() {
 
 ### Componente: Post
 
+- Alterações no componente principal(App):
+
+``` JSX
+import Header from "./components/Header";
+import Sidebar  from "./components/Sidebar";
+import Post from "./components/Post";
+
+import styles from "./App.module.css";
+
+import "./global.css";
+
+export default function App() {
+
+  return (
+    <div>
+      <Header />
+      
+      <div className={styles.wrapper}>
+        <Sidebar />
+        
+        <main>
+          <Post
+            author="Nathallye Bacelar"
+            img="https://github.com/nathallye.png"
+            contentHeader="Fala galera! 👋"
+            contentBody="Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀"
+            link="https://github.com/nathallye/ignite-feed"
+            hashtag="#novoprojeto"
+          />
+          <Post
+            author="Paulo Bacelar"
+            img="https://github.com/henrique-dev.png"
+            contentHeader="Fala galera! 👋"
+            contentBody="Acabei de subir mais um projeto no meu github. 🚀"
+            link="https://github.com/henrique-dev/nosso_financeiro"
+            hashtag="#novoprojeto"
+          />
+        </main>
+      </div>
+    </div>
+  )
+}
+```
+
 - Alterações no componente Post:
 
 ``` JSX
 import styles from "./Post.module.css";
 
-export function Post() {
+export function Post(props) {
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <img
-            className={styles.avatar}
-            src="https://github.com/nathallye.png" alt="" 
-          />
+          <img className={styles.avatar} src={props.img} alt="" />
+
           <div className={styles.authorInfo}>
-            <strong>Nathallye Bacelar</strong>
+            <strong>{props.author}</strong>
             <span>Full-Stack Developer</span>
           </div>
-
-          <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Publicado há 1h</time>
         </div>
+
+        <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Publicado há 1h</time>
       </header>
 
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p>
-        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-        <p>👉
-          <a href="#">jane.design/doctorcare</a>
-        </p>
-        <p>
-          <a href="#">#novoprojeto </a>
-          <a href="#">#nlw </a>
-          <a href="#">#rocketseat</a>
-        </p>
+        <p>{props.contentHeader}</p>
+        <p>{props.contentBody}</p>
+        <p>👉<a href={props.link}>{props.link}</a></p>
+        <p><a href="#">{props.hashtag}</a></p>
       </div>
     </article>
   )
 }
 ```
-
 
 - Alterações no CSS Module do Componente Post:
 

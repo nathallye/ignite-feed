@@ -17,12 +17,20 @@ export default function App() {
         
         <main>
           <Post
-            author="Diego Fernandes"
-            content="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime itaque quas corporis beatae veritatis, reprehenderit asperiores vitae quod possimus qui dignissimos unde deleniti consequatur quae, repellat debitis sunt, est rerum!"
+            author="Nathallye Bacelar"
+            img="https://github.com/nathallye.png"
+            contentHeader="Fala galera! 👋"
+            contentBody="Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀"
+            link="https://github.com/nathallye/ignite-feed"
+            hashtag="#novoprojeto"
           />
           <Post
-            author="Nathallye Bacelar"
-            content="Um novo post muito legal"
+            author="Paulo Bacelar"
+            img="https://github.com/henrique-dev.png"
+            contentHeader="Fala galera! 👋"
+            contentBody="Acabei de subir mais um projeto no meu github. 🚀"
+            link="https://github.com/henrique-dev/nosso_financeiro"
+            hashtag="#novoprojeto"
           />
         </main>
       </div>
