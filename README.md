@@ -394,3 +394,6 @@ export function Sidebar() {
   outline: 2px solid var(--green-500);
 }
 ```
+
+### Componente: Post
+
