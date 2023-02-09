@@ -162,6 +162,7 @@ Agora que já começamos a estilizar a nossa aplicação, vamos criar também al
   --gray-800: #202024;
   --gray-900: #121214;
 
+  --green-300: #00B37E;
   --green-500: #00875f;
 }
 
@@ -397,3 +398,120 @@ export function Sidebar() {
 
 ### Componente: Post
 
+- Alterações no componente Post:
+
+``` JSX
+import styles from "./Post.module.css";
+
+export function Post() {
+  return (
+    <article className={styles.post}>
+      <header>
+        <div className={styles.author}>
+          <img
+            className={styles.avatar}
+            src="https://github.com/nathallye.png" alt="" 
+          />
+          <div className={styles.authorInfo}>
+            <strong>Nathallye Bacelar</strong>
+            <span>Full-Stack Developer</span>
+          </div>
+
+          <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Publicado há 1h</time>
+        </div>
+      </header>
+
+      <div className={styles.content}>
+        <p>Fala galeraa 👋</p>
+        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
+        <p>👉
+          <a href="#">jane.design/doctorcare</a>
+        </p>
+        <p>
+          <a href="#">#novoprojeto </a>
+          <a href="#">#nlw </a>
+          <a href="#">#rocketseat</a>
+        </p>
+      </div>
+    </article>
+  )
+}
+```
+
+
+- Alterações no CSS Module do Componente Post:
+
+``` CSS
+.post {
+  background: var(--gray-800);
+  border-radius: 8px;
+  padding: 2.5rem;
+}
+
+.post + .post { /*Irá estilizar somente o post que contêm outro post antes(acima)*/
+  margin-top: 2rem;
+}
+
+.post > header { /* > irá estilizar somente o header que está dentro do post*/
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post > header time {
+  color: var(--gray-400);
+  font-size: 0.875rem;
+}
+
+.author {
+  display: flex; 
+  align-items: center;
+  gap: 1rem;
+}
+
+.author img {
+  box-sizing: initial; /*Faz com que as bordas adicionadas, ocupem espaço a mais e não exprema para caber no container*/
+
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+  border: 4px solid var(--gray-800);
+  outline: 2px solid var(--green-500);
+}
+
+.authorInfo strong {
+  display: block; /*Força que os elementos quebrem a linha e não fiquem em*/
+
+  color: var(--gray-100);
+  line-height: 1.6;
+}
+
+.authorInfo span {
+  display: block; /*Força que os elementos quebrem a linha e não fiquem em*/
+
+  color: var(--gray-400);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.content {
+  margin-top: 1.5rem;
+
+  color: var(--gray-300);
+  line-height: 1.6;
+}
+
+.content p {
+  margin-top: 1rem;
+}
+
+.content a {
+  color: var(--green-500);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.content a:hover {
+  color: var(--green-300);
+}
+```
