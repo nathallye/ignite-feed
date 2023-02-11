@@ -553,3 +553,122 @@ export function Post(props) {
 
 ### Formulário de comentários - Componente Post
 
+- Alterações no CSS Global da aplicação(global.css):
+
+``` CSS
+/*[...]*/
+
+:focus { /*sobreescrevendo o foco (ao selecionar um elemento) do navegador padrão*/
+  outline: transparent;
+  box-shadow: 0 0 0 2px var(--green-500);
+}
+
+/*[...]*/
+```
+
+- Alterações no componente Post:
+
+``` JSX
+import styles from "./Post.module.css";
+
+export function Post(props) {
+  return (
+    <article className={styles.post}>
+      <header>
+        <div className={styles.author}>
+          <img className={styles.avatar} src={props.img} alt="" />
+
+          <div className={styles.authorInfo}>
+            <strong>{props.author}</strong>
+            <span>Full-Stack Developer</span>
+          </div>
+        </div>
+
+        <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Publicado há 1h</time>
+      </header>
+
+      <div className={styles.content}>
+        <p>{props.contentHeader}</p>
+        <p>{props.contentBody}</p>
+        <p><a href={props.link}>{props.link}</a></p>
+        <p><a href="#">{props.hashtag}</a></p>
+      </div>
+
+      <form className={styles.commentForm}>
+        <strong>Deixe seu faeedback</strong>
+
+        {/*Hoje em dia o textarea não necessita mais dos atribulos name="" id="" cols="30" rows="10", e pode ser "autofechada*/}
+        <textarea 
+          placeholder="Deixe um comentário"
+        />
+
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
+      </form>
+    </article>
+  )
+}
+```
+
+- Alterações no CSS Module do Componente Post:
+
+``` CSS
+/*[...]*/
+
+.commentForm {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-600);
+}
+
+.commentForm > strong {
+  color: var(--gray-100);
+  line-height: 1.6;
+}
+
+.commentForm textarea {
+  background: var(--gray-900);
+
+  resize: none;
+  width: 100%;
+  height: 6rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  border: 0;
+
+  color: var(--gray-100);
+  line-height: 1.4;
+}
+
+.commentForm footer {
+  visibility: hidden;
+  max-height: 0;
+}
+
+.commentForm:focus-within footer { /*focus-within - se houver um foco em qualquer elemento dentro do commentForm, será aplicado os estilos seguintes no footer*/
+  visibility: visible;
+  max-height: none;
+}
+
+.commentForm button[type="submit"] { /*Irá selecionar somente os buttons do commentForm que contém type="submit"*/
+  background: var(--green-500);
+  
+  padding: 1rem 1.5rem;
+  margin-top: 1rem;
+  border: 0;
+  border-radius: 8px;
+
+  color: var(--white);
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: background-color 0.1s;
+}
+
+.commentForm button[type="submit"]:hover {
+  background: var(--green-300);
+}
+```
