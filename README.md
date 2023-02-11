@@ -675,3 +675,114 @@ export function Post(props) {
 
 ### Componente: Comment
 
+- Criação do componente Comment:
+
+``` JSX
+import { ThumbsUp, Trash } from "phosphor-react";
+import styles from "./Comment.module.css";
+
+export function Comment(props) {
+  return (
+    <div className={styles.comment}>
+      <img className={styles.avatar} src={props.img} alt="" />
+
+      <div className={styles.commentBox}>
+        <div className={styles.commentContent}>
+          <header>
+            <div className={styles.AuthorAndTime}>
+              <strong>{props.author}</strong>
+              <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Cerca de 1h atrás</time>
+            </div>
+
+            <button title="Deletar comentário">
+              <Trash size={20}/>
+            </button>
+          </header>
+
+          <p>{props.comment}</p>
+        </div>
+
+        <footer>
+          <button>
+            <ThumbsUp />
+            Aplaudir <span>20</span>
+          </button>
+        </footer>
+      </div>
+    </div>
+  )
+}
+```
+
+- Criação do CSS module do componente Comment:
+
+``` CSS
+
+```
+
+- Alterações no componente Post:
+
+``` JSX
+import Comment from "../Comment";
+
+import styles from "./Post.module.css";
+
+export function Post(props) {
+  return (
+    <article className={styles.post}>
+      <header>
+        <div className={styles.author}>
+          <img className={styles.avatar} src={props.img} alt="" />
+
+          <div className={styles.authorInfo}>
+            <strong>{props.author}</strong>
+            <span>Full-Stack Developer</span>
+          </div>
+        </div>
+
+        <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Publicado há 1h</time>
+      </header>
+
+      <div className={styles.content}>
+        <p>{props.contentHeader}</p>
+        <p>{props.contentBody}</p>
+        <p><a href={props.link}>{props.link}</a></p>
+        <p><a href="#">{props.hashtag}</a></p>
+      </div>
+
+      <form className={styles.commentForm}>
+        <strong>Deixe seu faeedback</strong>
+
+        {/*Hoje em dia o textarea não necessita mais dos atribulos name="" id="" cols="30" rows="10", e pode ser "autofechada*/}
+        <textarea 
+          placeholder="Deixe um comentário"
+        />
+
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
+      </form>
+
+      <div className={styles.commentList}>
+        <Comment 
+          img="https://github.com/henrique-dev.png"
+          author="Paulo Bacelar"
+          comment="Muito bom Nathallye, parabéns!! 👏👏"
+        />
+      </div>
+    </article>
+  )
+}
+```
+
+- Alterações no CSS module do componente Post:
+
+``` CSS
+/*[...]*/
+
+.commentList {
+  margin-top: 2rem;
+}
+
+/*[...]*/
+```
