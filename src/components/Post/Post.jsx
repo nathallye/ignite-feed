@@ -1,3 +1,5 @@
+import Comment from "../Comment";
+
 import styles from "./Post.module.css";
 
 export function Post(props) {
@@ -35,6 +37,14 @@ export function Post(props) {
           <button type="submit">Publicar</button>
         </footer>
       </form>
+
+      <div className={styles.commentList}>
+        <Comment 
+          img="https://github.com/henrique-dev.png"
+          author="Paulo Bacelar"
+          comment="Muito bom Nathallye, parabéns!! 👏👏"
+        />
+      </div>
     </article>
   )
 }

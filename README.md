@@ -672,3 +672,6 @@ export function Post(props) {
   background: var(--green-300);
 }
 ```
+
+### Componente: Comment
+
