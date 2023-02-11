@@ -42,7 +42,7 @@
 }
 
 .commentBox footer button span::before { /*Antes do conteúdo do elemento span será criado um elemento com os estilos abaixo*/
-  content: "\2022"; /*simbolo html*/
+  content: "\2022"; /*símbolo html*/
   padding: 0 0.25rem;
 }
 
