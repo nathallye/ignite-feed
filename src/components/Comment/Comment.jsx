@@ -4,7 +4,7 @@ import styles from "./Comment.module.css";
 export function Comment(props) {
   return (
     <div className={styles.comment}>
-      <img className={styles.avatar} src={props.img} alt="" />
+      <img className={styles.avatar} src={props.comments.avatar} alt="" />
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
