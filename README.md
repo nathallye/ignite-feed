@@ -1088,3 +1088,31 @@ Alterações nos componentes que contém avatar.
 ``` JSX
 <Avatar src="https://github.com/nathallye.png" />
 ```
+
+### APlicando responsividade
+
+- Alterações no CSS module do componente App:
+
+``` CSS
+.wrapper {
+  display: grid;
+  grid-template-columns: 256px 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+
+  max-width: 70rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) { /*Dispositivo Mobile*/
+  html {
+    /*Como estamos trabalhando com valores em rem(unidade de medida relativa ao tamanho da fonte da página), tudo na nossa página se redimensiona automáticamente de acordo com o font-size da página, */
+    font-size: 87.6%; /*16 -> 100% - 14 -> x - 14 * 100 / 16 = 87.6%*/
+  }
+
+  .wrapper {
+    grid-template-columns: 1fr; /*O grid passa a ter somente uma coluna*/
+  }
+}
+```
