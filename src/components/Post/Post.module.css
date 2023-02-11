@@ -25,16 +25,6 @@
   gap: 1rem;
 }
 
-.author img {
-  box-sizing: initial; /*Faz com que as bordas adicionadas, ocupem espaço a mais e não exprema para caber no container*/
-
-  width: 3rem; /*Ou cal(3rem + 12px)*/
-  height: 3rem; /*Ou cal(3rem + 12px)*/
-  border-radius: 8px;
-  border: 4px solid var(--gray-800);
-  outline: 2px solid var(--green-500);
-}
-
 .authorInfo strong {
   display: block; /*Força que os elementos quebrem a linha e não fiquem em*/
 

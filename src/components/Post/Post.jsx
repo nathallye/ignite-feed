@@ -1,3 +1,4 @@
+import Avatar from "../Avatar";
 import Comment from "../Comment";
 
 import styles from "./Post.module.css";
@@ -35,11 +36,7 @@ export function Post(props) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <img
-            className={styles.avatar}
-            src={props.posts.avatar}
-            alt=""
-          />
+          <Avatar hasBorder={true} src={props.posts.avatar} />
 
           <div className={styles.authorInfo}>
             <strong>{props.posts.author}</strong>

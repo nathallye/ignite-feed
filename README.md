@@ -719,6 +719,7 @@ export function Post(props) {
 
 ``` JSX
 import { ThumbsUp, Trash } from "phosphor-react";
+
 import styles from "./Comment.module.css";
 
 export function Comment(props) {
@@ -960,4 +961,114 @@ export function Post(props) {
 }
 
 /*[...]*/
+```
+
+### Componente: Avatar
+
+Como o elemento Avatar se repete várias vezes no projeto, vamos torná-lo em um componente.
+
+- Criação do componente Avatar:
+
+``` JSX
+import styles from "./Avatar.module.css";
+
+export function Avatar(props) {
+  return (
+    <img
+      className={props.hasBorder ? styles.avatarWithBorder : styles.avatar}
+      src={props.src}
+      alt=""
+    />
+  )
+}
+```
+
+- Criação do CSS module do componente Avatar:
+
+``` CSS
+.avatar {
+  box-sizing: initial; /*Faz com que as bordas adicionadas, ocupem espaço a mais e não exprema para caber no container*/
+
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+}
+
+.avatarWithBorder {
+  box-sizing: initial;
+
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+  border: 4px solid var(--gray-800);
+  outline: 2px solid var(--green-500);
+}
+```
+
+Alterações nos componentes que contém avatar.
+
+- Post:
+
+1. Remover img e substituir pelo componente Avatar passando via props a url recebida:
+
+``` JSX
+<Avatar hasBorder={true} src={props.posts.avatar} /> {/*Ou somente, hasBorder*/}
+```
+
+2. Remover os estilos do avatar do CSS module do componente Post.
+
+- Sidebar:
+
+1. Remover img e substituir pelo componente Avatar passando via props a url:
+
+``` JSX
+<Avatar hasBorder src="https://github.com/nathallye.png" />
+```
+
+2. Remover os estilos do avatar do CSS module do componente Sidebar.
+
+- Comment:
+
+1. Remover img e substituir pelo componente Avatar passando via props a url recebida:
+
+``` JSX
+<Avatar hasBorder={false} src={props.comments.avatar} />
+```
+
+2. Remover os estilos do avatar do CSS module do componente Comment.
+
+- Para evitar de passar sempre a propriedade `hasBorder` mesmo quando for true, podemos atribuir a uma constante o valor recebido via props:
+
+``` JSX
+import styles from "./Avatar.module.css";
+
+export function Avatar(props) {
+
+  const hasBorder = props.hasBorder != false; // se a propriedade hasBorder for diferente de false, quer dizer que ele tem borda(se a propriedade não for enviada)
+
+  return (
+    <img
+      className={hasBorder ? styles.avatarWithBorder : styles.avatar}
+      src={props.src}
+      alt=""
+    />
+  )
+}
+```
+
+- Ou, pegar diretamente os atributos de props e definir valores padrão:
+
+``` JSX
+import styles from "./Avatar.module.css";
+
+export function Avatar({ hasBorder = true, src }) {
+
+  return (
+    <img
+      className={hasBorder ? styles.avatarWithBorder : styles.avatar}
+      src={src}
+      alt=""
+    />
+  )
+}
 ```
