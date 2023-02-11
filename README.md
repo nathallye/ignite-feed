@@ -9,25 +9,25 @@
 - Rendering Patterns (Padrões de renderização)
   - **SSR**
   Toda vez que o usuário (o Browser) requisita uma página(rota) da aplicação, essa página é recebida pelo servidor; o servidor contém todo o código (back-end e front-end da aplicação), o back-end interpleta a requisição do browser e monta todo o HTML, CSS e JS da página solicitada e devolve para o Browser.
-  
+
   <div align="center">
     <img width="400" src="https://user-images.githubusercontent.com/86172286/216845518-3e835666-c768-4224-a8dc-a43d0e635e09.jpg" >
   </div>
 
   - **SPA**
   Toda vez que o usuário (o Browser) requisita uma página(rota) da aplicação, o back-end(API) busca no banco de dados, porém, o back-end não contém mais as informações para construção do HTML, CSS e JS da página, ele vai apenas retornar os dados(nesse caso é os dados dos usuários - users) em formato de JSON; e esses dados são mandados para a aplicação front-end (React) e ela será responsável por converter esses dados de JSON para HTML, CSS e JS.
-  
+
   <div align="center">
     <img width="400" src="https://user-images.githubusercontent.com/86172286/216845522-26703e0a-88b8-4761-a932-4929cd90ba78.jpg" >
   </div>
 
 ## Bundlers & Compilers (Empacotadores e Compiladores)
 
-Com o mundo de desenvolvimento evoluindo à todo momento, nem sempre todos os browsers conseguem acompanhar a evolução da tecnologia para dar suporte à sintaxe mais moderna. 
+Com o mundo de desenvolvimento evoluindo à todo momento, nem sempre todos os browsers conseguem acompanhar a evolução da tecnologia para dar suporte à sintaxe mais moderna.
 
 Para isso existem os **compilers**, como o **babel** que convertem o código moderno para uma sintaxe mais antiga que os browsers reconhecem; e os **bundlers** como o **webpack** que faz um bundling de todos os arquivos da nossa aplicação de uma forma que todos os browsers reconheçam.
 
-Atualmente, a grande maiorida dos browsers já suportam a importação de módulos (importação e exportação entre arquivos JS) através da feature de **ESModules** e com isso não precisamos mais utilizar o webpack, mantendo o nosso fluxo de desenvolvimento e processo de construção da aplicação muito mais performático. 
+Atualmente, a grande maiorida dos browsers já suportam a importação de módulos (importação e exportação entre arquivos JS) através da feature de **ESModules** e com isso não precisamos mais utilizar o webpack, mantendo o nosso fluxo de desenvolvimento e processo de construção da aplicação muito mais performático.
 
 Temos outra alternativa para criar o nosso projeto, que é o **Vite** para substituir os bundlers e compilers tradicionais (como babel e webpack) que já utiliza por padrão o ESModules e com ele tiramos proveito das funcionalidades mais modernas dos navegadores para ter uma melhor performance de compilação e execução.
 
@@ -103,7 +103,7 @@ Vamos seguir essa mesma estrutura para a criação dos demais componentes.
 
 Um Módulo CSS é um arquivo CSS no qual todos os nomes de classe e nomes de animação são definidos localmente por padrão. Todas as URLs ( `url(...)`) e `@imports` estão no formato de solicitação de módulo (`./xxx` e `../xxx` significa relativo, `xxx` e `xxx/yyy` significa na pasta de módulos, ou seja, em `node_modules`).
 
-- Módulos CSS compilam em um formato de intercâmbio de baixo nível chamado ICSS ou Interoperable CSS, mas são escritos como arquivos CSS normais. 
+- Módulos CSS compilam em um formato de intercâmbio de baixo nível chamado ICSS ou Interoperable CSS, mas são escritos como arquivos CSS normais.
 Podemos notar na prática inserindo no arquivo `Header.module.css` a aplicação de estilo abaixo:
 
 ``` CSS
@@ -146,7 +146,7 @@ export default function App() {
 
 Agora que já começamos a estilizar a nossa aplicação, vamos criar também algumas estilizações globais para que todos os elementos da nossa página compartilhem de alguns estilos como tamanho e tipos de fontes, resets de CSS e também algumas cores padrões que vamos utilizar na nossa aplicação.
 
-- Em `src` vamos criar um arquivo chamado `global.css`(se já não existir) e importá-lo dentro de `App.jsx`. 
+- Em `src` vamos criar um arquivo chamado `global.css`(se já não existir) e importá-lo dentro de `App.jsx`.
 
 - Dentro desse arquivo de estilização global (`global.css`) vamos definir algumas aplicações de estilo:
 
@@ -237,10 +237,10 @@ export default function App() {
   return (
     <div>
       <Header />
-      
+
       <div className={styles.wrapper}>
         <Sidebar />
-        
+
         <main>
           <Post
             author="Diego Fernandes"
@@ -290,16 +290,16 @@ import styles from "./Sidebar.module.css";
 export function Sidebar() {
   return (
     <aside className={styles.sidebar}>
-      <img 
-        className={styles.cover} 
-        src="https://images.unsplash.com/photo-1617042375876-a13e36732a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=40" 
-        alt="" 
+      <img
+        className={styles.cover}
+        src="https://images.unsplash.com/photo-1617042375876-a13e36732a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=40"
+        alt=""
       />
 
       <div className={styles.profile}>
-        <img 
+        <img
           className={styles.avatar}
-          src="https://github.com/nathallye.png" alt="" 
+          src="https://github.com/nathallye.png" alt=""
         />
 
         <strong>Nathallye Bacelar</strong>
@@ -351,7 +351,7 @@ export function Sidebar() {
   text-decoration: none;
 
   transition: color 0.1s, background-color 0.1s;
-} 
+}
 
 .sidebar footer a:hover {
   background: var(--green-500);
@@ -411,30 +411,40 @@ import "./global.css";
 
 export default function App() {
 
+  const posts = [
+    {
+      id: 1,
+      author: "Nathallye Bacelar",
+      profession: "Full-Stack Developer",
+      avatar: "https://github.com/nathallye.png",
+      time: {
+        title: "09 de Fevereiro às 19:45h",
+        dateTime: "2023-02-09 19:45:44",
+        text: "Publicado há 1h"
+      },
+      content: {
+        header: "Fala galera! 👋",
+        body: "Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀",
+        link: "https://github.com/nathallye/ignite-feed",
+        hashtag: "#novoprojeto"
+      }
+    },
+    // [...]
+  ];
+
   return (
     <div>
       <Header />
-      
+
       <div className={styles.wrapper}>
         <Sidebar />
-        
+
         <main>
-          <Post
-            author="Nathallye Bacelar"
-            img="https://github.com/nathallye.png"
-            contentHeader="Fala galera! 👋"
-            contentBody="Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀"
-            link="https://github.com/nathallye/ignite-feed"
-            hashtag="#novoprojeto"
-          />
-          <Post
-            author="Paulo Bacelar"
-            img="https://github.com/henrique-dev.png"
-            contentHeader="Fala galera! 👋"
-            contentBody="Acabei de subir mais um projeto no meu github. 🚀"
-            link="https://github.com/henrique-dev/nosso_financeiro"
-            hashtag="#novoprojeto"
-          />
+          {
+            posts.map((item) => {
+              return <Post key={item.id} posts={item} />
+            })
+          }
         </main>
       </div>
     </div>
@@ -452,22 +462,36 @@ export function Post(props) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <img className={styles.avatar} src={props.img} alt="" />
+          <img
+            className={styles.avatar}
+            src={props.posts.avatar}
+            alt=""
+          />
 
           <div className={styles.authorInfo}>
-            <strong>{props.author}</strong>
-            <span>Full-Stack Developer</span>
+            <strong>{props.posts.author}</strong>
+            <span>{props.posts.profession}</span>
           </div>
         </div>
 
-        <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Publicado há 1h</time>
+        <time
+          title={props.posts.time.title}
+          dateTime={props.posts.time.dateTime}>
+            {props.posts.time.text}
+        </time>
       </header>
 
       <div className={styles.content}>
-        <p>{props.contentHeader}</p>
-        <p>{props.contentBody}</p>
-        <p>👉<a href={props.link}>{props.link}</a></p>
-        <p><a href="#">{props.hashtag}</a></p>
+        <p>{props.posts.content.header}</p>
+        <p>{props.posts.content.body}</p>
+        <p>
+          <a href={props.posts.content.link}>
+            {props.link}
+          </a>
+        </p>
+        <p>
+          <a href="#">{props.posts.content.hashtag}</a>
+        </p>
       </div>
     </article>
   )
@@ -499,7 +523,7 @@ export function Post(props) {
 }
 
 .author {
-  display: flex; 
+  display: flex;
   align-items: center;
   gap: 1rem;
 }
@@ -576,29 +600,43 @@ export function Post(props) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <img className={styles.avatar} src={props.img} alt="" />
+          <img
+            className={styles.avatar}
+            src={props.posts.avatar}
+            alt=""
+          />
 
           <div className={styles.authorInfo}>
-            <strong>{props.author}</strong>
-            <span>Full-Stack Developer</span>
+            <strong>{props.posts.author}</strong>
+            <span>{props.posts.profession}</span>
           </div>
         </div>
 
-        <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Publicado há 1h</time>
+        <time
+          title={props.posts.time.title}
+          dateTime={props.posts.time.dateTime}>
+            {props.posts.time.text}
+        </time>
       </header>
 
       <div className={styles.content}>
-        <p>{props.contentHeader}</p>
-        <p>{props.contentBody}</p>
-        <p><a href={props.link}>{props.link}</a></p>
-        <p><a href="#">{props.hashtag}</a></p>
+        <p>{props.posts.content.header}</p>
+        <p>{props.posts.content.body}</p>
+        <p>
+          <a href={props.posts.content.link}>
+            {props.link}
+          </a>
+        </p>
+        <p>
+          <a href="#">{props.posts.content.hashtag}</a>
+        </p>
       </div>
 
       <form className={styles.commentForm}>
         <strong>Deixe seu faeedback</strong>
 
         {/*Hoje em dia o textarea não necessita mais dos atribulos name="" id="" cols="30" rows="10", e pode ser "autofechada*/}
-        <textarea 
+        <textarea
           placeholder="Deixe um comentário"
         />
 
@@ -655,7 +693,7 @@ export function Post(props) {
 
 .commentForm button[type="submit"] { /*Irá selecionar somente os buttons do commentForm que contém type="submit"*/
   background: var(--green-500);
-  
+
   padding: 1rem 1.5rem;
   margin-top: 1rem;
   border: 0;
@@ -689,9 +727,13 @@ export function Comment(props) {
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
           <header>
-            <div className={styles.AuthorAndTime}>
-              <strong>{props.author}</strong>
-              <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Cerca de 1h atrás</time>
+            <div className={styles.authorAndTime}>
+              <strong>{props.comments.author}</strong>
+              <time
+                title={props.comments.time.title}
+                dateTime={props.comments.time.dateTime}>
+                  {props.comments.time.text}
+              </time>
             </div>
 
             <button title="Deletar comentário">
@@ -705,7 +747,7 @@ export function Comment(props) {
         <footer>
           <button>
             <ThumbsUp />
-            Aplaudir <span>20</span>
+            Aplaudir <span>{props.comments.amountApplause}</span>
           </button>
         </footer>
       </div>
@@ -728,33 +770,63 @@ import Comment from "../Comment";
 import styles from "./Post.module.css";
 
 export function Post(props) {
+
+  const comments = [
+    {
+      id: 1,
+      avatar: "https://github.com/henrique-dev.png",
+      author: "Paulo Bacelar",
+      time: {
+        title: "09 de Fevereiro às 19:45h",
+        dateTime: "2023-02-09 19:45:44",
+        text: "Cerca de 1h atrás"
+      },
+      comment: "Muito bom Nathallye, parabéns!! 👏👏",
+      amountApplause: 20
+    },
+    // [...]
+  ];
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <img className={styles.avatar} src={props.img} alt="" />
+          <img
+            className={styles.avatar}
+            src={props.posts.avatar}
+            alt=""
+          />
 
           <div className={styles.authorInfo}>
-            <strong>{props.author}</strong>
-            <span>Full-Stack Developer</span>
+            <strong>{props.posts.author}</strong>
+            <span>{props.posts.profession}</span>
           </div>
         </div>
 
-        <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Publicado há 1h</time>
+        <time
+          title={props.posts.time.title}
+          dateTime={props.posts.time.dateTime}>
+            {props.posts.time.text}
+        </time>
       </header>
 
       <div className={styles.content}>
-        <p>{props.contentHeader}</p>
-        <p>{props.contentBody}</p>
-        <p><a href={props.link}>{props.link}</a></p>
-        <p><a href="#">{props.hashtag}</a></p>
+        <p>{props.posts.content.header}</p>
+        <p>{props.posts.content.body}</p>
+        <p>
+          <a href={props.posts.content.link}>
+            {props.link}
+          </a>
+        </p>
+        <p>
+          <a href="#">{props.posts.content.hashtag}</a>
+        </p>
       </div>
 
       <form className={styles.commentForm}>
         <strong>Deixe seu faeedback</strong>
 
-        {/*Hoje em dia o textarea não necessita mais dos atribulos name="" id="" cols="30" rows="10", e pode ser "autofechada*/}
-        <textarea 
+        <textarea
           placeholder="Deixe um comentário"
         />
 
@@ -764,11 +836,11 @@ export function Post(props) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment 
-          img="https://github.com/henrique-dev.png"
-          author="Paulo Bacelar"
-          comment="Muito bom Nathallye, parabéns!! 👏👏"
-        />
+        {
+          comments.map((item) => {
+            return <Comment comments={item} />
+          })
+        }
       </div>
     </article>
   )
