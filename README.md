@@ -1037,6 +1037,8 @@ Alterações nos componentes que contém avatar.
 
 2. Remover os estilos do avatar do CSS module do componente Comment.
 
+#### Melhorias no Componente Avatar
+
 - Para evitar de passar sempre a propriedade `hasBorder` mesmo quando for true, podemos atribuir a uma constante o valor recebido via props:
 
 ``` JSX
@@ -1071,4 +1073,18 @@ export function Avatar({ hasBorder = true, src }) {
     />
   )
 }
+```
+
+Alterações nos componentes que contém avatar.
+
+- Post:
+
+``` JSX
+<Avatar src={props.posts.avatar} /> {/*Ou somente, hasBorder*/}
+```
+
+- Sidebar:
+
+``` JSX
+<Avatar src="https://github.com/nathallye.png" />
 ```
