@@ -9,9 +9,13 @@ export function Comment(props) {
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
           <header>
-            <div className={styles.AuthorAndTime}>
-              <strong>{props.author}</strong>
-              <time title="09 de Fevereiro às 19:45h" dateTime="2023-02-09 19:45:44">Cerca de 1h atrás</time>
+            <div className={styles.authorAndTime}>
+              <strong>{props.comments.author}</strong>
+              <time
+                title={props.comments.time.title}
+                dateTime={props.comments.time.dateTime}>
+                  {props.comments.time.text}
+              </time>
             </div>
 
             <button title="Deletar comentário">
@@ -25,7 +29,7 @@ export function Comment(props) {
         <footer>
           <button>
             <ThumbsUp />
-            Aplaudir <span>20</span>
+            Aplaudir <span>{props.comments.amountApplause}</span>
           </button>
         </footer>
       </div>
