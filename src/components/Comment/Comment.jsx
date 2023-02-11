@@ -19,11 +19,11 @@ export function Comment(props) {
             </div>
 
             <button title="Deletar comentário">
-              <Trash size={20}/>
+              <Trash size={24}/>
             </button>
           </header>
 
-          <p>{props.comment}</p>
+          <p>{props.comments.comment}</p>
         </div>
 
         <footer>

@@ -164,6 +164,8 @@ Agora que já começamos a estilizar a nossa aplicação, vamos criar também al
 
   --green-300: #00B37E;
   --green-500: #00875f;
+
+  --red-500: #F75A68;
 }
 
 * {
@@ -737,11 +739,11 @@ export function Comment(props) {
             </div>
 
             <button title="Deletar comentário">
-              <Trash size={20}/>
+              <Trash size={24}/>
             </button>
           </header>
 
-          <p>{props.comment}</p>
+          <p>{props.comments.comment}</p>
         </div>
 
         <footer>
