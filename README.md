@@ -550,3 +550,6 @@ export function Post(props) {
   color: var(--green-300);
 }
 ```
+
+### Formulário de comentários - Componente Post
+

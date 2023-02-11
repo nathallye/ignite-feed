@@ -19,9 +19,22 @@ export function Post(props) {
       <div className={styles.content}>
         <p>{props.contentHeader}</p>
         <p>{props.contentBody}</p>
-        <p>👉<a href={props.link}>{props.link}</a></p>
+        <p><a href={props.link}>{props.link}</a></p>
         <p><a href="#">{props.hashtag}</a></p>
       </div>
+
+      <form className={styles.commentForm}>
+        <strong>Deixe seu faeedback</strong>
+
+        {/*Hoje em dia o textarea não necessita mais dos atribulos name="" id="" cols="30" rows="10", e pode ser "autofechada*/}
+        <textarea 
+          placeholder="Deixe um comentário"
+        />
+
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
+      </form>
     </article>
   )
 }
