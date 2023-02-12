@@ -1106,3 +1106,48 @@ Alterações nos componentes que contém avatar.
 
 ### Trabalhando com data
 
+No componente Post temos que tratar a data de públicação, para facilitar vamos usar o pacote a biblioteca `date-fns`.
+
+- Vamos instalar a biblioteca `date-fns` com o comando seguinte:
+
+```
+npm i date-fns
+```
+
+- Feito isso, podemos usá-la:
+
+``` JSX
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+
+// [...]
+
+export function Post({ author, publishedAt, content}) { /*Desestruturação do props*/
+
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, { /*formatDistanceToNow - compara a data armazenada em publishedAt com a atual*/
+    locale: ptBR,
+    addSuffix: true /*gera um prefixo antes de exibir o tempo relativo da publicação*/
+  });
+
+  {/*[...]*/}
+
+  return (
+    <article className={styles.post}>
+      <header>
+        {/*[...]*/}
+
+        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+          {publishedDateRelativeToNow}
+        </time>
+
+      </header>
+
+      {/*[...]*/}
+    </article>
+  )
+}
+```

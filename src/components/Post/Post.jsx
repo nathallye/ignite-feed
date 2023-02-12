@@ -1,9 +1,21 @@
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+
 import Avatar from "../Avatar";
 import Comment from "../Comment";
 
 import styles from "./Post.module.css";
 
 export function Post({ author, publishedAt, content}) { /*Desestruturação do props*/
+
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, { /*formatDistanceToNow - compara a data armazenada em publishedAt com a atual*/
+    locale: ptBR,
+    addSuffix: true /*gera um prefixo antes de exibir o tempo relativo da publicação*/
+  });
 
   const comments = [
     {
@@ -44,13 +56,10 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
           </div>
         </div>
 
-        {/*
-        <time
-          title={props.posts.time.title}
-          dateTime={props.posts.time.dateTime}>
-            {props.publishedAt}
+        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+          {publishedDateRelativeToNow}
         </time>
-        */}
+
       </header>
 
       <div className={styles.content}>
