@@ -17,12 +17,12 @@ export default function App() {
         role: "Full-Stack Developer"
       },
       publishedAt: new Date("2023-02-10 18:45:44"),
-      content: {
-        header: "Fala galera! 👋",
-        body: "Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀",
-        link: "https://github.com/nathallye/ignite-feed",
-        hashtag: "#novoprojeto"
-      }
+      content: [
+        { type: "paragraph", content: "Fala galera! 👋" },
+        { type: "paragraph", content: "Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀" },
+        { type: "link", content: "https://github.com/nathallye/ignite-feed" },
+        { type: "hashtag", content: "#novoprojeto" }
+      ]
     },
     {
       id: 2,
@@ -32,12 +32,12 @@ export default function App() {
         role: "Back-end Developer"
       },
       publishedAt: new Date("2023-02-11 19:45:44"),
-      content: {
-        header: "Fala galera! 👋",
-        body: "Acabei de subir mais um projeto no meu github. 🚀",
-        link: "https://github.com/henrique-dev/nosso_financeiro",
-        hashtag: "#novoprojeto"
-      }
+      content: [
+        { type: "paragraph", content: "Fala galera! 👋" },
+        { type: "paragraph", content: "Acabei de subir mais um projeto no meu github. 🚀" },
+        { type: "link", content: "https://github.com/henrique-dev/nosso_financeiro" },
+        { type: "hashtag", content: "#novoprojeto" }
+      ]
     }
   ];
 

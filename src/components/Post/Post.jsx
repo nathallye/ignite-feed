@@ -63,16 +63,17 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
       </header>
 
       <div className={styles.content}>
-        <p>{content.header}</p>
-        <p>{content.body}</p>
-        <p>
-          <a href={content.link}>
-            {content.link}
-          </a>
-        </p>
-        <p>
-          <a href="#">{content.hashtag}</a>
-        </p>
+        {
+          content.map(line => {
+            if (line.type === "paragraph") {
+              return <p>{line.content}</p>
+            } else if (line.type === "link") {
+              return <p><a href="#">{line.content}</a></p>
+            } else if (line.type === "hashtag") {
+              return <p><a href="#">{line.content}</a></p>
+            }
+          })
+        }
       </div>
 
       <form className={styles.commentForm}>
