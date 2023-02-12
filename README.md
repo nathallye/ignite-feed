@@ -886,15 +886,14 @@ export function Post(props) {
   const comments = [
     {
       id: 1,
-      avatar: "https://github.com/henrique-dev.png",
-      author: "Paulo Bacelar",
-      time: {
-        title: "09 de Fevereiro às 19:45h",
-        dateTime: "2023-02-09 19:45:44",
-        text: "Cerca de 1h atrás"
+      author: {
+        avatar: "https://github.com/luhsales1.png",
+        name: "Luciana Sales"
       },
-      comment: "Muito bom Nathallye, parabéns!! 👏👏",
-      amountApplause: 20
+      publishedAt: new Date("2023-02-11 19:45:44"),
+      content: {
+        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+      }
     },
     // [...]
   ];
