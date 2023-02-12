@@ -3,7 +3,7 @@ import Comment from "../Comment";
 
 import styles from "./Post.module.css";
 
-export function Post(props) {
+export function Post({ author, publishedAt, content}) { /*Desestruturação do props*/
 
   const comments = [
     {
@@ -36,31 +36,33 @@ export function Post(props) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src={props.posts.avatar} />
+          <Avatar src={author.avatar} />
 
           <div className={styles.authorInfo}>
-            <strong>{props.posts.author}</strong>
-            <span>{props.posts.profession}</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
+        {/*
         <time
           title={props.posts.time.title}
           dateTime={props.posts.time.dateTime}>
-            {props.posts.time.text}
+            {props.publishedAt}
         </time>
+        */}
       </header>
 
       <div className={styles.content}>
-        <p>{props.posts.content.header}</p>
-        <p>{props.posts.content.body}</p>
+        <p>{content.header}</p>
+        <p>{content.body}</p>
         <p>
-          <a href={props.posts.content.link}>
-            {props.link}
+          <a href={content.link}>
+            {content.link}
           </a>
         </p>
         <p>
-          <a href="#">{props.posts.content.hashtag}</a>
+          <a href="#">{content.hashtag}</a>
         </p>
       </div>
 

@@ -1089,7 +1089,7 @@ Alterações nos componentes que contém avatar.
 <Avatar src="https://github.com/nathallye.png" />
 ```
 
-### APlicando responsividade
+### Aplicando responsividade
 
 - Alterações no CSS module do componente App:
 

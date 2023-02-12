@@ -11,14 +11,12 @@ export default function App() {
   const posts = [
     {
       id: 1,
-      author: "Nathallye Bacelar",
-      profession: "Full-Stack Developer",
-      avatar: "https://github.com/nathallye.png",
-      time: {
-        title: "09 de Fevereiro às 19:45h",
-        dateTime: "2023-02-09 19:45:44",
-        text: "Publicado há 1h"
+      author: {
+        avatar: "https://github.com/nathallye.png",
+        name: "Nathallye Bacelar",
+        role: "Full-Stack Developer"
       },
+      publishedAt: new Date("2023-02-10 18:45:44"),
       content: {
         header: "Fala galera! 👋",
         body: "Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀",
@@ -28,14 +26,12 @@ export default function App() {
     },
     {
       id: 2,
-      author: "Paulo Bacelar",
-      profession: "Back-end Developer",
-      avatar: "https://github.com/henrique-dev.png",
-      time: {
-        title: "09 de Fevereiro às 18:45h",
-        dateTime: "2023-02-09 18:45:44",
-        text: "Publicado há 2h"
+      author: {
+        avatar: "https://github.com/henrique-dev.png",
+        name: "Paulo Bacelar",
+        role: "Back-end Developer"
       },
+      publishedAt: new Date("2023-02-11 19:45:44"),
       content: {
         header: "Fala galera! 👋",
         body: "Acabei de subir mais um projeto no meu github. 🚀",
@@ -54,8 +50,15 @@ export default function App() {
 
         <main>
           {
-            posts.map((item) => {
-              return <Post key={item.id} posts={item} />
+            posts.map((post) => {
+              return (
+                <Post
+                  key={post.id}
+                  author={post.author}
+                  publishedAt={post.publishedAt}
+                  content={post.content}
+                />
+              )
             })
           }
         </main>
