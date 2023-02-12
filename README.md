@@ -1171,3 +1171,85 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 
 ### Estado (useState)
 
+Vamos gerenciar o estado dos comentários usando o hook useState.
+
+- Alterações no componente Post(componente que importa o Comment):
+
+``` JSX
+import { useState } from "react";
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+
+import Avatar from "../Avatar";
+import Comment from "../Comment";
+
+import styles from "./Post.module.css";
+
+export function Post({ author, publishedAt, content}) { /*Desestruturação do props*/
+
+  // estado = variáveis que eu quero que o componente monitore
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      author: {
+        avatar: "https://github.com/luhsales1.png",
+        name: "Luciana Sales"
+      },
+      publishedAt: new Date("2023-02-11 19:45:44"),
+      content: {
+        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+      }
+    }
+  ]);
+
+  // [...]
+
+  function handleCreateNewComment() { // ou const handleCreateNewComment = () {}
+    event.preventDefault(); // para evitar o comportamento padrão do html de redirecionar o usuário para outra página ao clickar no submit
+    setComments([...comments, {
+      id: comments.length,
+      author: {
+        avatar: "https://github.com/souzabel.png",
+        name: "Isabel Souza"
+      },
+      publishedAt: new Date("2023-02-11 20:55:44"),
+      content: {
+        comment: "👏👏", amountApplause: 3
+      }
+    }])
+  }
+
+  return (
+    <article className={styles.post}>
+      {/*[...]*/}
+
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
+        <strong>Deixe seu faeedback</strong>
+
+        <textarea
+          placeholder="Deixe um comentário"
+        />
+
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
+      </form>
+
+      <div className={styles.commentList}>
+        {
+          comments.map((comment) => {
+            return (
+              <Comment
+                key={comment.id}
+                author={comment.author}
+                publishedAt={comment.publishedAt}
+                content={comment.content}
+              />
+            )
+          })
+        }
+      </div>
+    </article>
+  )
+}
+```
