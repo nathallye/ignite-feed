@@ -482,17 +482,18 @@ export function Post(props) {
         */}
       </header>
 
-      <div className={styles.content}>
-        <p>{content.header}</p>
-        <p>{content.body}</p>
-        <p>
-          <a href={content.link}>
-            {content.link}
-          </a>
-        </p>
-        <p>
-          <a href="#">{content.hashtag}</a>
-        </p>
+       <div className={styles.content}>
+        {
+          content.map(line => {
+            if (line.type === "paragraph") {
+              return <p>{line.content}</p>
+            } else if (line.type === "link") {
+              return <p><a href="#">{line.content}</a></p>
+            } else if (line.type === "hashtag") {
+              return <p><a href="#">{line.content}</a></p>
+            }
+          })
+        }
       </div>
     </article>
   )
@@ -614,17 +615,18 @@ export function Post(props) {
         */}
       </header>
 
-      <div className={styles.content}>
-        <p>{content.header}</p>
-        <p>{content.body}</p>
-        <p>
-          <a href={content.link}>
-            {content.link}
-          </a>
-        </p>
-        <p>
-          <a href="#">{content.hashtag}</a>
-        </p>
+       <div className={styles.content}>
+        {
+          content.map(line => {
+            if (line.type === "paragraph") {
+              return <p>{line.content}</p>
+            } else if (line.type === "link") {
+              return <p><a href="#">{line.content}</a></p>
+            } else if (line.type === "hashtag") {
+              return <p><a href="#">{line.content}</a></p>
+            }
+          })
+        }
       </div>
 
       <form className={styles.commentForm}>
@@ -711,24 +713,37 @@ export function Post(props) {
 - Criação do componente Comment:
 
 ``` JSX
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 import { ThumbsUp, Trash } from "phosphor-react";
+
+import Avatar from "../Avatar";
 
 import styles from "./Comment.module.css";
 
-export function Comment(props) {
+export function Comment({author, publishedAt, content}) {
+
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, { /*formatDistanceToNow - compara a data armazenada em publishedAt com a atual*/
+    locale: ptBR,
+    addSuffix: true /*gera um prefixo antes de exibir o tempo relativo da publicação*/
+  });
+
   return (
     <div className={styles.comment}>
-      <img className={styles.avatar} src={props.comments.avatar} alt="" />
+      <Avatar hasBorder={false} src={author.avatar} />
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>{props.comments.author}</strong>
-              <time
-                title={props.comments.time.title}
-                dateTime={props.comments.time.dateTime}>
-                  {props.comments.time.text}
+              <strong>{author.name}</strong>
+
+              <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+                {publishedDateRelativeToNow}
               </time>
             </div>
 
@@ -737,13 +752,13 @@ export function Comment(props) {
             </button>
           </header>
 
-          <p>{props.comments.comment}</p>
+          <p>{content.comment}</p>
         </div>
 
         <footer>
           <button>
             <ThumbsUp />
-            Aplaudir <span>{props.comments.amountApplause}</span>
+            Aplaudir <span>{content.amountApplause}</span>
           </button>
         </footer>
       </div>
@@ -901,22 +916,24 @@ export function Post(props) {
         */}
       </header>
 
-      <div className={styles.content}>
-        <p>{content.header}</p>
-        <p>{content.body}</p>
-        <p>
-          <a href={content.link}>
-            {content.link}
-          </a>
-        </p>
-        <p>
-          <a href="#">{content.hashtag}</a>
-        </p>
+     <div className={styles.content}>
+        {
+          content.map(line => {
+            if (line.type === "paragraph") {
+              return <p>{line.content}</p>
+            } else if (line.type === "link") {
+              return <p><a href="#">{line.content}</a></p>
+            } else if (line.type === "hashtag") {
+              return <p><a href="#">{line.content}</a></p>
+            }
+          })
+        }
       </div>
 
       <form className={styles.commentForm}>
         <strong>Deixe seu faeedback</strong>
 
+        {/*Hoje em dia o textarea não necessita mais dos atribulos name="" id="" cols="30" rows="10", e pode ser "autofechada*/}
         <textarea
           placeholder="Deixe um comentário"
         />
@@ -928,8 +945,14 @@ export function Post(props) {
 
       <div className={styles.commentList}>
         {
-          comments.map((item) => {
-            return <Comment comments={item} />
+          comments.map((comment) => {
+            return (
+              <Comment
+                author={comment.author}
+                publishedAt={comment.publishedAt}
+                content={comment.content}
+              />
+            )
           })
         }
       </div>
