@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 
@@ -8,7 +9,9 @@ import styles from "./Post.module.css";
 
 export function Post({ author, publishedAt, content}) { /*Desestruturação do props*/
 
-  const comments = [
+  // estado = variáveis que eu quero que o componente monitore
+
+  const [comments, setComments] = useState([
     {
       id: 1,
       author: {
@@ -19,19 +22,8 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
       content: {
         comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
       }
-    },
-    {
-      id: 2,
-      author: {
-        avatar: "https://github.com/souzabel.png",
-        name: "Isabel Souza"
-      },
-      publishedAt: new Date("2023-02-11 20:55:44"),
-      content: {
-        comment: "👏👏", amountApplause: 3
-      }
     }
-  ];
+  ]);
 
   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
@@ -44,7 +36,17 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 
   function handleCreateNewComment() { // ou const handleCreateNewComment = () {}
     event.preventDefault(); // para evitar o comportamento padrão do html de redirecionar o usuário para outra página ao clickar no submit
-    console.log("handleCreateNewComment");
+    setComments([...comments, {
+      id: comments.length,
+      author: {
+        avatar: "https://github.com/souzabel.png",
+        name: "Isabel Souza"
+      },
+      publishedAt: new Date("2023-02-11 20:55:44"),
+      content: {
+        comment: "👏👏", amountApplause: 3
+      }
+    }])
   }
 
   return (
