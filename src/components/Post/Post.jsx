@@ -20,27 +20,25 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
   const comments = [
     {
       id: 1,
-      avatar: "https://github.com/henrique-dev.png",
-      author: "Paulo Bacelar",
-      time: {
-        title: "09 de Fevereiro às 19:45h",
-        dateTime: "2023-02-09 19:45:44",
-        text: "Cerca de 1h atrás"
+      author: {
+        avatar: "https://github.com/luhsales1.png",
+        name: "Luciana Sales"
       },
-      comment: "Muito bom Nathallye, parabéns!! 👏👏",
-      amountApplause: 20
+      publishedAt: new Date("2023-02-11 19:45:44"),
+      content: {
+        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+      }
     },
     {
       id: 2,
-      avatar: "https://github.com/henrique-dev.png",
-      author: "Paulo Bacelar",
-      time: {
-        title: "09 de Fevereiro às 17:45h",
-        dateTime: "2023-02-09 17:45:44",
-        text: "Cerca de 3h atrás"
+      author: {
+        avatar: "https://github.com/souzabel.png",
+        name: "Isabel Souza"
       },
-      comment: "Muito bom Nathallye, parabéns!! 👏👏",
-      amountApplause: 30
+      publishedAt: new Date("2023-02-11 20:55:44"),
+      content: {
+        comment: "👏👏", amountApplause: 3
+      }
     }
   ];
 
@@ -91,8 +89,14 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 
       <div className={styles.commentList}>
         {
-          comments.map((item) => {
-            return <Comment comments={item} />
+          comments.map((comment) => {
+            return (
+              <Comment
+                author={comment.author}
+                publishedAt={comment.publishedAt}
+                content={comment.content}
+              />
+            )
           })
         }
       </div>

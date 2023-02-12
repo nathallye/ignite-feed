@@ -1,23 +1,34 @@
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 import { ThumbsUp, Trash } from "phosphor-react";
 
 import Avatar from "../Avatar";
 
 import styles from "./Comment.module.css";
 
-export function Comment(props) {
+export function Comment({author, publishedAt, content}) {
+
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, { /*formatDistanceToNow - compara a data armazenada em publishedAt com a atual*/
+    locale: ptBR,
+    addSuffix: true /*gera um prefixo antes de exibir o tempo relativo da publicação*/
+  });
+
   return (
     <div className={styles.comment}>
-      <Avatar hasBorder={false} src={props.comments.avatar} />
+      <Avatar hasBorder={false} src={author.avatar} />
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>{props.comments.author}</strong>
-              <time
-                title={props.comments.time.title}
-                dateTime={props.comments.time.dateTime}>
-                  {props.comments.time.text}
+              <strong>{author.name}</strong>
+
+              <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+                {publishedDateRelativeToNow}
               </time>
             </div>
 
@@ -26,13 +37,13 @@ export function Comment(props) {
             </button>
           </header>
 
-          <p>{props.comments.comment}</p>
+          <p>{content.comment}</p>
         </div>
 
         <footer>
           <button>
             <ThumbsUp />
-            Aplaudir <span>{props.comments.amountApplause}</span>
+            Aplaudir <span>{content.amountApplause}</span>
           </button>
         </footer>
       </div>
