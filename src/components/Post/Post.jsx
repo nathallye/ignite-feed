@@ -8,15 +8,6 @@ import styles from "./Post.module.css";
 
 export function Post({ author, publishedAt, content}) { /*Desestruturação do props*/
 
-  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
-    locale: ptBR,
-  });
-
-  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, { /*formatDistanceToNow - compara a data armazenada em publishedAt com a atual*/
-    locale: ptBR,
-    addSuffix: true /*gera um prefixo antes de exibir o tempo relativo da publicação*/
-  });
-
   const comments = [
     {
       id: 1,
@@ -42,6 +33,20 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
     }
   ];
 
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, { /*formatDistanceToNow - compara a data armazenada em publishedAt com a atual*/
+    locale: ptBR,
+    addSuffix: true /*gera um prefixo antes de exibir o tempo relativo da publicação*/
+  });
+
+  function handleCreateNewComment() { // ou const handleCreateNewComment = () {}
+    event.preventDefault(); // para evitar o comportamento padrão do html de redirecionar o usuário para outra página ao clickar no submit
+    console.log("handleCreateNewComment");
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -64,17 +69,15 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
         {
           content.map(line => {
             if (line.type === "paragraph") {
-              return <p>{line.content}</p>
+              return <p key={line.id}>{line.content}</p>
             } else if (line.type === "link") {
-              return <p><a href="#">{line.content}</a></p>
-            } else if (line.type === "hashtag") {
-              return <p><a href="#">{line.content}</a></p>
+              return <p key={line.id}><a href="#">{line.content}</a></p>
             }
           })
         }
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu faeedback</strong>
 
         {/*Hoje em dia o textarea não necessita mais dos atribulos name="" id="" cols="30" rows="10", e pode ser "autofechada*/}
@@ -92,6 +95,7 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
           comments.map((comment) => {
             return (
               <Comment
+                key={comment.id}
                 author={comment.author}
                 publishedAt={comment.publishedAt}
                 content={comment.content}

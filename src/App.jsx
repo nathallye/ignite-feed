@@ -21,7 +21,7 @@ export default function App() {
         { type: "paragraph", content: "Fala galera! 👋" },
         { type: "paragraph", content: "Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀" },
         { type: "link", content: "https://github.com/nathallye/ignite-feed" },
-        { type: "hashtag", content: "#novoprojeto" }
+        { type: "link", content: "#novoprojeto" }
       ]
     },
     {
@@ -36,7 +36,7 @@ export default function App() {
         { type: "paragraph", content: "Fala galera! 👋" },
         { type: "paragraph", content: "Acabei de subir mais um projeto no meu github. 🚀" },
         { type: "link", content: "https://github.com/henrique-dev/nosso_financeiro" },
-        { type: "hashtag", content: "#novoprojeto" }
+        { type: "link", content: "#novoprojeto" }
       ]
     }
   ];

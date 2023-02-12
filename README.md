@@ -422,12 +422,12 @@ export default function App() {
         role: "Full-Stack Developer"
       },
       publishedAt: new Date("2023-02-10 18:45:44"),
-      content: {
-        header: "Fala galera! 👋",
-        body: "Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀",
-        link: "https://github.com/nathallye/ignite-feed",
-        hashtag: "#novoprojeto"
-      }
+      content: [
+        { type: "paragraph", content: "Fala galera! 👋" },
+        { type: "paragraph", content: "Acabei de subir mais um projeto no meu github. É um projeto que fiz no Ignite, curso da Rocketseat. O nome do projeto é IgniteFeed 🚀" },
+        { type: "link", content: "https://github.com/nathallye/ignite-feed" },
+        { type: "link", content: "#novoprojeto" }
+      ]
     },
     // [...]
   ];
@@ -482,15 +482,13 @@ export function Post(props) {
         */}
       </header>
 
-       <div className={styles.content}>
+      <div className={styles.content}>
         {
           content.map(line => {
             if (line.type === "paragraph") {
-              return <p>{line.content}</p>
+              return <p key={line.id}>{line.content}</p>
             } else if (line.type === "link") {
-              return <p><a href="#">{line.content}</a></p>
-            } else if (line.type === "hashtag") {
-              return <p><a href="#">{line.content}</a></p>
+              return <p key={line.id}><a href="#">{line.content}</a></p>
             }
           })
         }
@@ -615,15 +613,13 @@ export function Post(props) {
         */}
       </header>
 
-       <div className={styles.content}>
+      <div className={styles.content}>
         {
           content.map(line => {
             if (line.type === "paragraph") {
-              return <p>{line.content}</p>
+              return <p key={line.id}>{line.content}</p>
             } else if (line.type === "link") {
-              return <p><a href="#">{line.content}</a></p>
-            } else if (line.type === "hashtag") {
-              return <p><a href="#">{line.content}</a></p>
+              return <p key={line.id}><a href="#">{line.content}</a></p>
             }
           })
         }
@@ -915,15 +911,13 @@ export function Post(props) {
         */}
       </header>
 
-     <div className={styles.content}>
+      <div className={styles.content}>
         {
           content.map(line => {
             if (line.type === "paragraph") {
-              return <p>{line.content}</p>
+              return <p key={line.id}>{line.content}</p>
             } else if (line.type === "link") {
-              return <p><a href="#">{line.content}</a></p>
-            } else if (line.type === "hashtag") {
-              return <p><a href="#">{line.content}</a></p>
+              return <p key={line.id}><a href="#">{line.content}</a></p>
             }
           })
         }
@@ -947,6 +941,7 @@ export function Post(props) {
           comments.map((comment) => {
             return (
               <Comment
+                key={comment.id}
                 author={comment.author}
                 publishedAt={comment.publishedAt}
                 content={comment.content}
@@ -1173,3 +1168,6 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
   )
 }
 ```
+
+### Estado (useState)
+
