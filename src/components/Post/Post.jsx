@@ -24,6 +24,7 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
       }
     }
   ]);
+  const [newCommentText, setNewCommentText] = useState("");
 
   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
@@ -36,17 +37,31 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 
   function handleCreateNewComment() { // ou const handleCreateNewComment = () {}
     event.preventDefault(); // para evitar o comportamento padrão do html de redirecionar o usuário para outra página ao clickar no submit
+
+    const publishedAt = Date.now();
+
     setComments([...comments, {
       id: comments.length,
       author: {
         avatar: "https://github.com/souzabel.png",
         name: "Isabel Souza"
       },
-      publishedAt: new Date("2023-02-11 20:55:44"),
+      publishedAt: new Date(publishedAt),
       content: {
-        comment: "👏👏", amountApplause: 3
+        comment: newCommentText,
+        amountApplause: 0
       }
     }])
+
+    setNewCommentText(""); // depois de adicionar o comentário, o estádo vai voltar para o inicio (string vazia)
+  }
+
+  function handleNewCommentChange() {
+    setNewCommentText(event.target.value); // como o evento foi adicionado na textarea (e não no form) podemos acessar diretamente o valor com o event.target.value
+  }
+
+  function deleteComment(id) {
+    console.log(`Deletar comentário com id ${id}`);
   }
 
   return (
@@ -71,9 +86,9 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
         {
           content.map(line => {
             if (line.type === "paragraph") {
-              return <p key={line.id}>{line.content}</p>
+              return <p key={line.content}>{line.content}</p>
             } else if (line.type === "link") {
-              return <p key={line.id}><a href="#">{line.content}</a></p>
+              return <p key={line.content}><a href="#">{line.content}</a></p>
             }
           })
         }
@@ -84,7 +99,10 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 
         {/*Hoje em dia o textarea não necessita mais dos atribulos name="" id="" cols="30" rows="10", e pode ser "autofechada*/}
         <textarea
+          name="comment"
           placeholder="Deixe um comentário"
+          value={newCommentText}
+          onChange={handleNewCommentChange}
         />
 
         <footer>
@@ -98,9 +116,11 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
             return (
               <Comment
                 key={comment.id}
+                id={comment.id}
                 author={comment.author}
                 publishedAt={comment.publishedAt}
                 content={comment.content}
+                OnDeleteComment={deleteComment}
               />
             )
           })

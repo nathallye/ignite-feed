@@ -1169,23 +1169,16 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 }
 ```
 
-### Estado (useState)
+### Estado Comentários (useState)
 
 Vamos gerenciar o estado dos comentários usando o hook useState.
 
 - Alterações no componente Post(componente que importa o Comment):
 
 ``` JSX
-import { useState } from "react";
-import { format, formatDistanceToNow } from "date-fns";
-import ptBR from "date-fns/locale/pt-BR";
+// [...]
 
-import Avatar from "../Avatar";
-import Comment from "../Comment";
-
-import styles from "./Post.module.css";
-
-export function Post({ author, publishedAt, content}) { /*Desestruturação do props*/
+export function Post({ author, publishedAt, content}) {
 
   // estado = variáveis que eu quero que o componente monitore
   const [comments, setComments] = useState([
@@ -1250,6 +1243,270 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
         }
       </div>
     </article>
+  )
+}
+```
+
+### Inserindo comentários - Capturando o texto inserido na textarea (Programação Declarativa)
+
+- **Programação imperativa:** O que deve ser feito (passo-a-passo). Exemplo:
+
+``` JSX
+// [...]
+
+export function Post({ author, publishedAt, content}) {
+
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      author: {
+        avatar: "https://github.com/luhsales1.png",
+        name: "Luciana Sales"
+      },
+      publishedAt: new Date("2023-02-11 19:45:44"),
+      content: {
+        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+      }
+    }
+  ]);
+
+  // [...]
+
+  function handleCreateNewComment() {
+    event.preventDefault();
+
+    const publishedAt = Date.now();
+    const newCommentText = event.target.comment.value; // acessando o comentário pelo name da textarea
+
+    setComments([...comments, {
+      id: comments.length,
+      author: {
+        avatar: "https://github.com/souzabel.png",
+        name: "Isabel Souza"
+      },
+      publishedAt: new Date(publishedAt),
+      content: {
+        comment: newCommentText,
+        amountApplause: 3
+      }
+    }])
+
+    event.target.comment.value = ""; // para limpar a textarea depois de publicar o comentário
+  }
+
+  return (
+    <article className={styles.post}>
+      {/*[...]*/}
+
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
+        <strong>Deixe seu faeedback</strong>
+
+        <textarea
+          name="comment"
+          placeholder="Deixe um comentário"
+        />
+
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
+      </form>
+
+      <div className={styles.commentList}>
+        {
+          comments.map((comment) => {
+            return (
+              <Comment
+                key={comment.id}
+                author={comment.author}
+                publishedAt={comment.publishedAt}
+                content={comment.content}
+              />
+            )
+          })
+        }
+      </div>
+    </article>
+  )
+}
+```
+
+- **Programação declarativa:** Quais as condições para eu ter o resultado final(jeito certo de programar usando React). Exemplo:
+
+``` JSX
+// [...]
+
+export function Post({ author, publishedAt, content}) {
+
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      author: {
+        avatar: "https://github.com/luhsales1.png",
+        name: "Luciana Sales"
+      },
+      publishedAt: new Date("2023-02-11 19:45:44"),
+      content: {
+        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+      }
+    }
+  ]);
+  const [newCommentText, setNewCommentText] = useState("");
+
+  // [...]
+
+  function handleCreateNewComment() {
+    event.preventDefault();
+
+    const publishedAt = Date.now();
+
+    setComments([...comments, {
+      id: comments.length,
+      author: {
+        avatar: "https://github.com/souzabel.png",
+        name: "Isabel Souza"
+      },
+      publishedAt: new Date(publishedAt),
+      content: {
+        comment: newCommentText,
+        amountApplause: 0
+      }
+    }])
+
+    setNewCommentText(""); // depois de adicionar o comentário, o estádo vai voltar para o inicio (string vazia)
+  }
+
+  function handleNewCommentChange() {
+    setNewCommentText(event.target.value); // como o evento foi adicionado na textarea (e não no form) podemos acessar diretamente o valor com o event.target.value
+  }
+
+  return (
+    <article className={styles.post}>
+      {/*[...]*/}
+
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
+        <strong>Deixe seu faeedback</strong>
+
+        <textarea
+          name="comment"
+          placeholder="Deixe um comentário"
+          value={newCommentText}
+          onChange={handleNewCommentChange}
+        />
+
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
+      </form>
+
+      <div className={styles.commentList}>
+        {
+          comments.map((comment) => {
+            return (
+              <Comment
+                key={comment.id}
+                author={comment.author}
+                publishedAt={comment.publishedAt}
+                content={comment.content}
+              />
+            )
+          })
+        }
+      </div>
+    </article>
+  )
+}
+```
+
+### Comunicação entre componentes - Para excluir um comentário
+
+- Alterações no componente Pai do Comment (quem irá capturar o evento(click) no botão de exclusão de um comentário):
+
+``` JSX
+// [...]
+
+export function Post({ author, publishedAt, content}) {
+
+  // [...]
+
+  function deleteComment(id) {
+    console.log(`Deletar comentário com id ${id}`);
+  }
+
+  return (
+    <article className={styles.post}>
+      {/*[...]*/}
+
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
+        <strong>Deixe seu faeedback</strong>
+
+        <textarea
+          name="comment"
+          placeholder="Deixe um comentário"
+          value={newCommentText}
+          onChange={handleNewCommentChange}
+        />
+
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
+      </form>
+
+      <div className={styles.commentList}>
+        {
+          comments.map((comment) => {
+            return (
+              <Comment
+                key={comment.id}
+                id={comment.id}
+                author={comment.author}
+                publishedAt={comment.publishedAt}
+                content={comment.content}
+                OnDeleteComment={deleteComment}
+              />
+            )
+          })
+        }
+      </div>
+    </article>
+  )
+}
+```
+
+- Alterações no componente Filho(Comment):
+
+``` JSX
+// [...]
+
+export function Comment({id, author, publishedAt, content, OnDeleteComment}) {
+
+  // [...]
+
+  function handleDeleteComment() {
+    console.log("Deletando...");
+
+    OnDeleteComment(id);
+  }
+
+  return (
+    <div className={styles.comment}>
+      <Avatar hasBorder={false} src={author.avatar} />
+
+      <div className={styles.commentBox}>
+        <div className={styles.commentContent}>
+          <header>
+            {/*[...]*/}
+
+            <button onClick={handleDeleteComment} title="Deletar comentário">
+              <Trash size={24}/>
+            </button>
+          </header>
+
+          <p>{content.comment}</p>
+        </div>
+
+        {/*[...]*/}
+      </div>
+    </div>
   )
 }
 ```
