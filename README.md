@@ -888,7 +888,8 @@ export function Post(props) {
       },
       publishedAt: new Date("2023-02-11 19:45:44"),
       content: {
-        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+        comment: "Muito bom Nathallye, parabéns!! 👏👏",
+        amountApplause: 10
       }
     },
     // [...]
@@ -1173,6 +1174,8 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 
 Vamos gerenciar o estado dos comentários usando o hook useState.
 
+Estado = variáveis que eu quero que o componente monitore.
+
 - Alterações no componente Post(componente que importa o Comment):
 
 ``` JSX
@@ -1190,7 +1193,8 @@ export function Post({ author, publishedAt, content}) {
       },
       publishedAt: new Date("2023-02-11 19:45:44"),
       content: {
-        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+        comment: "Muito bom Nathallye, parabéns!! 👏👏",
+        amountApplause: 10
       }
     }
   ]);
@@ -1207,7 +1211,8 @@ export function Post({ author, publishedAt, content}) {
       },
       publishedAt: new Date("2023-02-11 20:55:44"),
       content: {
-        comment: "👏👏", amountApplause: 3
+        comment: "👏👏",
+        amountApplause: 3
       }
     }])
   }
@@ -1265,7 +1270,8 @@ export function Post({ author, publishedAt, content}) {
       },
       publishedAt: new Date("2023-02-11 19:45:44"),
       content: {
-        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+        comment: "Muito bom Nathallye, parabéns!! 👏👏",
+        amountApplause: 10
       }
     }
   ]);
@@ -1346,7 +1352,8 @@ export function Post({ author, publishedAt, content}) {
       },
       publishedAt: new Date("2023-02-11 19:45:44"),
       content: {
-        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+        comment: "Muito bom Nathallye, parabéns!! 👏👏",
+        amountApplause: 10
       }
     }
   ]);
@@ -1436,21 +1443,6 @@ export function Post({ author, publishedAt, content}) {
     <article className={styles.post}>
       {/*[...]*/}
 
-      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
-        <strong>Deixe seu faeedback</strong>
-
-        <textarea
-          name="comment"
-          placeholder="Deixe um comentário"
-          value={newCommentText}
-          onChange={handleNewCommentChange}
-        />
-
-        <footer>
-          <button type="submit">Publicar</button>
-        </footer>
-      </form>
-
       <div className={styles.commentList}>
         {
           comments.map((comment) => {
@@ -1507,6 +1499,53 @@ export function Comment({id, author, publishedAt, content, OnDeleteComment}) {
         {/*[...]*/}
       </div>
     </div>
+  )
+}
+```
+
+### Removendo comentários (imutabilidade)
+
+Imutabilidade: as variáveis não sofrem mutação, não alteramos o valor da variável na memória, nós criamos um novo valor (um novo espaço na memória).
+
+- Alterações no componente Post(função `deleteComment`):
+
+``` JSX
+// [...]
+
+export function Post({ author, publishedAt, content}) {
+
+  // [...]
+
+  function deleteComment(idCommentToDelete) {
+    // imutabilidade -> as variáveis não sofrem mutação, não alteramos o valor da variável na memória, nós criamos um novo valor (um novo espaço na memória)
+    const commentsWithoutDeletedOne = comments.filter((comment) => {
+      return comment.id !== idCommentToDelete;
+    });
+
+    setComments(commentsWithoutDeletedOne);
+  }
+
+  return (
+    <article className={styles.post}>
+      {/*[...]*/}
+
+      <div className={styles.commentList}>
+        {
+          comments.map((comment) => {
+            return (
+              <Comment
+                key={comment.id}
+                id={comment.id}
+                author={comment.author}
+                publishedAt={comment.publishedAt}
+                content={comment.content}
+                onDeleteComment={deleteComment}
+              />
+            )
+          })
+        }
+      </div>
+    </article>
   )
 }
 ```

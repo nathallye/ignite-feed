@@ -13,14 +13,27 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 
   const [comments, setComments] = useState([
     {
-      id: 1,
+      id: 0,
       author: {
         avatar: "https://github.com/luhsales1.png",
         name: "Luciana Sales"
       },
+      publishedAt: new Date("2023-02-12 19:45:44"),
+      content: {
+        comment: "Muito bom Nathallye, parabéns!! 👏👏",
+        amountApplause: 8
+      }
+    },
+    {
+      id: 1,
+      author: {
+        avatar: "https://github.com/souzabel.png",
+        name: "Isabel Souza"
+      },
       publishedAt: new Date("2023-02-11 19:45:44"),
       content: {
-        comment: "Muito bom Nathallye, parabéns!! 👏👏", amountApplause: 10
+        comment: "Parabéns!! 👏👏",
+        amountApplause: 10
       }
     }
   ]);
@@ -35,16 +48,16 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
     addSuffix: true /*gera um prefixo antes de exibir o tempo relativo da publicação*/
   });
 
-  function handleCreateNewComment() { // ou const handleCreateNewComment = () {}
+  function handleCreateNewComment(event) { // ou const handleCreateNewComment = () {}
     event.preventDefault(); // para evitar o comportamento padrão do html de redirecionar o usuário para outra página ao clickar no submit
 
     const publishedAt = Date.now();
 
     setComments([...comments, {
-      id: comments.length,
+      id: comments.length + 1,
       author: {
-        avatar: "https://github.com/souzabel.png",
-        name: "Isabel Souza"
+        avatar: "https://github.com/nathallye.png",
+        name: "Nathallye Bacelar"
       },
       publishedAt: new Date(publishedAt),
       content: {
@@ -56,12 +69,17 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
     setNewCommentText(""); // depois de adicionar o comentário, o estádo vai voltar para o inicio (string vazia)
   }
 
-  function handleNewCommentChange() {
+  function handleNewCommentChange(event) {
     setNewCommentText(event.target.value); // como o evento foi adicionado na textarea (e não no form) podemos acessar diretamente o valor com o event.target.value
   }
 
-  function deleteComment(id) {
-    console.log(`Deletar comentário com id ${id}`);
+  function deleteComment(idCommentToDelete) {
+    // imutabilidade -> as variáveis não sofrem mutação, não alteramos o valor da variável na memória, nós criamos um novo valor (um novo espaço na memória)
+    const commentsWithoutDeletedOne = comments.filter((comment) => {
+      return comment.id !== idCommentToDelete;
+    });
+
+    setComments(commentsWithoutDeletedOne);
   }
 
   return (
@@ -84,7 +102,7 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 
       <div className={styles.content}>
         {
-          content.map(line => {
+          content.map((line) => {
             if (line.type === "paragraph") {
               return <p key={line.content}>{line.content}</p>
             } else if (line.type === "link") {
@@ -120,7 +138,7 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
                 author={comment.author}
                 publishedAt={comment.publishedAt}
                 content={comment.content}
-                OnDeleteComment={deleteComment}
+                onDeleteComment={deleteComment}
               />
             )
           })

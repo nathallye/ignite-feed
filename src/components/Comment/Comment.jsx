@@ -6,7 +6,7 @@ import Avatar from "../Avatar";
 
 import styles from "./Comment.module.css";
 
-export function Comment({id, author, publishedAt, content, OnDeleteComment}) {
+export function Comment({id, author, publishedAt, content, onDeleteComment}) {
 
   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
@@ -18,9 +18,7 @@ export function Comment({id, author, publishedAt, content, OnDeleteComment}) {
   });
 
   function handleDeleteComment() {
-    console.log("Deletando...");
-
-    OnDeleteComment(id);
+    onDeleteComment(id);
   }
 
   return (
