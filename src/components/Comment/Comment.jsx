@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import { ThumbsUp, Trash } from "phosphor-react";
@@ -7,6 +8,8 @@ import Avatar from "../Avatar";
 import styles from "./Comment.module.css";
 
 export function Comment({id, author, publishedAt, content, onDeleteComment}) {
+
+  const [likeCount, setLikeCount] = useState(0);
 
   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
@@ -19,6 +22,10 @@ export function Comment({id, author, publishedAt, content, onDeleteComment}) {
 
   function handleDeleteComment() {
     onDeleteComment(id);
+  }
+
+  function handleLikeComment() {
+    setLikeCount(likeCount + 1);
   }
 
   return (
@@ -45,9 +52,9 @@ export function Comment({id, author, publishedAt, content, onDeleteComment}) {
         </div>
 
         <footer>
-          <button>
+          <button onClick={handleLikeComment}> {/*Todos os eventos (onClick, onSubmit) esperam receber como valor uma função(assim handleLikeComment ou () => setLikeCount(likeCount + 1)) e não a execução da função(setLikeCount(likeCount + 1))*/}
             <ThumbsUp />
-            Aplaudir <span>{content.amountApplause}</span>
+            Aplaudir <span>{likeCount}</span>
           </button>
         </footer>
       </div>

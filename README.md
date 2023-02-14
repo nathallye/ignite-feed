@@ -1611,3 +1611,39 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
 
 /*[...]*/
 ```
+
+### Realizando likes nos comentários - Gerenciando estado
+
+- Alterações no componente Comment:
+
+``` JSX
+// [...]
+
+export function Comment({id, author, publishedAt, content, onDeleteComment}) {
+
+  const [likeCount, setLikeCount] = useState(0);
+
+  // [...]
+
+  function handleLikeComment() {
+    setLikeCount(likeCount + 1);
+  }
+
+  return (
+    <div className={styles.comment}>
+      <Avatar hasBorder={false} src={author.avatar} />
+
+      <div className={styles.commentBox}>
+        {/*[...]*/}
+
+        <footer>
+          <button onClick={handleLikeComment}> {/*Todos os eventos (onClick, onSubmit) esperam receber como valor uma função(assim handleLikeComment ou () => setLikeCount(likeCount + 1)) e não a execução da função(setLikeCount(likeCount + 1))*/}
+            <ThumbsUp />
+            Aplaudir <span>{likeCount}</span>
+          </button>
+        </footer>
+      </div>
+    </div>
+  )
+}
+```

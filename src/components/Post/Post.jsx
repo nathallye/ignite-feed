@@ -20,8 +20,7 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
       },
       publishedAt: new Date("2023-02-12 19:45:44"),
       content: {
-        comment: "Muito bom Nathallye, parabéns!! 👏👏",
-        amountApplause: 8
+        comment: "Muito bom Nathallye, parabéns!! 👏👏"
       }
     },
     {
@@ -32,8 +31,7 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
       },
       publishedAt: new Date("2023-02-11 19:45:44"),
       content: {
-        comment: "Parabéns!! 👏👏",
-        amountApplause: 10
+        comment: "Parabéns!! 👏👏"
       }
     }
   ]);
@@ -61,8 +59,7 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
       },
       publishedAt: new Date(publishedAt),
       content: {
-        comment: newCommentText,
-        amountApplause: 0
+        comment: newCommentText
       }
     }])
 
