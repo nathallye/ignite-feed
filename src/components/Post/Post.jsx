@@ -82,6 +82,8 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
     setComments(commentsWithoutDeletedOne);
   }
 
+  const isNewCommentEmpty = newCommentText.length === 0;
+
   return (
     <article className={styles.post}>
       <header>
@@ -121,10 +123,13 @@ export function Post({ author, publishedAt, content}) { /*Desestruturação do p
           placeholder="Deixe um comentário"
           value={newCommentText}
           onChange={handleNewCommentChange}
-        />
+          required
+        /> {/*required - não irá pernmitir o envio do formulário vazio*/}
 
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}> {/*disabled={newCommentText.length === 0}*/}
+            Publicar
+          </button> {/*disabled - irá desabilitar o button quando o estado de newCommentText for igual a 0, ou seja, nada foi digitado*/}
         </footer>
       </form>
 

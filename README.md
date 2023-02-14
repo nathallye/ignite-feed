@@ -1549,3 +1549,65 @@ export function Post({ author, publishedAt, content}) {
   )
 }
 ```
+
+### Validando formulário
+
+- Alterações no componente Post:
+
+``` JSX
+// [...]
+
+export function Post({ author, publishedAt, content}) { /*Desestruturação do props*/
+
+  // [...]
+
+  const [newCommentText, setNewCommentText] = useState("");
+
+  // [...]
+
+  const isNewCommentEmpty = newCommentText.length === 0;
+
+  return (
+    <article className={styles.post}>
+      {/*[...]*/}
+
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
+        <strong>Deixe seu faeedback</strong>
+
+        <textarea
+          name="comment"
+          placeholder="Deixe um comentário"
+          value={newCommentText}
+          onChange={handleNewCommentChange}
+          required
+        /> {/*required - não irá pernmitir o envio do formulário vazio*/}
+
+        <footer>
+          <button type="submit" disabled={isNewCommentEmpty}> {/*disabled={newCommentText.length === 0}*/}
+            Publicar
+          </button> {/*disabled - irá desabilitar o button quando o estado de newCommentText for igual a 0, ou seja, nada foi digitado*/}
+        </footer>
+      </form>
+
+      {/*[...]*/}
+    </article>
+  )
+}
+```
+
+- Alterações no CSS module do componente Post:
+
+``` CSS
+/*[...]*/
+
+.commentForm button[type="submit"]:not(:disabled):hover { /*O hover só irá ser aplicado caso o button não(not) esteja desabilitado(disabled)*/
+  background: var(--green-300);
+}
+
+.commentForm button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/*[...]*/
+```
