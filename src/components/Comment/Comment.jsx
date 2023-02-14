@@ -52,7 +52,8 @@ export function Comment({id, author, publishedAt, content, onDeleteComment}) {
         </div>
 
         <footer>
-          <button onClick={handleLikeComment}> {/*Todos os eventos (onClick, onSubmit) esperam receber como valor uma função(assim handleLikeComment ou () => setLikeCount(likeCount + 1)) e não a execução da função(setLikeCount(likeCount + 1))*/}
+          {/*Todos os eventos (onClick, onSubmit) esperam receber como valor uma função(assim handleLikeComment ou () => setLikeCount(likeCount + 1)) e não a execução da função(setLikeCount(likeCount + 1))*/}
+          <button onClick={handleLikeComment}>
             <ThumbsUp />
             Aplaudir <span>{likeCount}</span>
           </button>
