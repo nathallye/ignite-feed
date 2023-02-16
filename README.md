@@ -1,4 +1,4 @@
-# ReactJS - Ignite Feed
+# Ignite Feed
 
 <div align="center">
   <img width="800" src="https://user-images.githubusercontent.com/86172286/219225671-f1b62166-d696-419c-bf6d-79c738685daa.gif">
